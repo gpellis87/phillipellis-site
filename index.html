@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phillip Ellis — Web Development, Hosting & IT Services · Dawsonville, GA</title>
+  <meta name="description" content="Custom websites, VPS hosting, managed IT services, Microsoft 365, and Google Workspace for small businesses. Based in Dawsonville, GA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+  /* ================================================================
+     TOKENS
+  ================================================================ */
+  :root {
+    --bg:        #080910;
+    --bg-card:   #0d0f1e;
+    --bg-raised: #111428;
+    --glass:     rgba(255,255,255,0.035);
+    --border:    rgba(255,255,255,0.07);
+    --border-hi: rgba(255,255,255,0.13);
+    --blue:      #3b82f6;
+    --blue-dim:  rgba(59,130,246,0.12);
+    --blue-glow: rgba(59,130,246,0.25);
+    --violet:    #7c3aed;
+    --violet-dim:rgba(124,58,237,0.12);
+    --hi:   #eef2ff;
+    --mid:  #8892a4;
+    --lo:   #3d4455;
+    --green:#22c55e;
+    --r:    14px;
+    --r-sm: 9px;
+    --ease: cubic-bezier(.4,0,.2,1);
+  }
+
+  /* ================================================================
+     BASE
+  ================================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--hi);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--blue); color: #fff; }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--lo); border-radius: 9px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--blue); }
+
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+
+  /* ================================================================
+     LAYOUT HELPERS
+  ================================================================ */
+  .container {
+    max-width: 1160px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 3rem);
+  }
+  section { position: relative; z-index: 1; }
+
+  /* ================================================================
+     TYPOGRAPHY SYSTEM
+  ================================================================ */
+  .label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: .72rem; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: .75rem;
+  }
+  .label::before {
+    content: ''; display: block;
+    width: 20px; height: 2px;
+    background: var(--blue); border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .display {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+    font-weight: 800; line-height: 1.08;
+    letter-spacing: -.03em;
+    color: var(--hi);
+  }
+  .display-lg {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5.2rem);
+    font-weight: 800; line-height: 1.04;
+    letter-spacing: -.035em;
+    color: var(--hi);
+  }
+  .heading {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    font-weight: 700; color: var(--hi);
+    letter-spacing: -.01em;
+  }
+
+  .grad {
+    background: linear-gradient(120deg, var(--blue) 0%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .body-text { font-size: .93rem; color: var(--mid); line-height: 1.75; }
+  .body-lg   { font-size: 1.05rem; color: var(--mid); line-height: 1.75; }
+
+  /* ================================================================
+     BUTTONS
+  ================================================================ */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600; font-size: .9rem;
+    padding: 13px 26px; border-radius: var(--r-sm);
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all .25s var(--ease);
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--blue); color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  }
+  .btn-primary:hover {
+    background: #2563eb;
+    box-shadow: 0 6px 24px var(--blue-glow);
+    transform: translateY(-2px);
+  }
+  .btn-ghost {
+    background: var(--glass); color: var(--hi);
+    border: 1px solid var(--border-hi);
+    backdrop-filter: blur(8px);
+  }
+  .btn-ghost:hover {
+    background: rgba(255,255,255,.07);
+    border-color: rgba(255,255,255,.2);
+    transform: translateY(-2px);
+  }
+  .btn i { font-size: .82rem; }
+
+  /* ================================================================
+     BADGES / TAGS / PILLS
+  ================================================================ */
+  .tag {
+    font-size: .7rem; font-weight: 600;
+    padding: 3px 9px; border-radius: 99px;
+    background: var(--glass); border: 1px solid var(--border);
+    color: var(--mid); letter-spacing: .02em;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--glass); border: 1px solid var(--border);
+    padding: 6px 14px; border-radius: 99px;
+    font-size: .78rem; color: var(--mid);
+    backdrop-filter: blur(8px);
+  }
+  .pill i { font-size: .8rem; }
+
+  /* ================================================================
+     CARDS
+  ================================================================ */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    transition: border-color .25s var(--ease), transform .25s var(--ease);
+  }
+  .card:hover {
+    border-color: var(--border-hi);
+    transform: translateY(-3px);
+  }
+  .card-pad  { padding: 1.75rem; }
+  .card-pad-lg { padding: 2.25rem; }
+
+  /* icon boxes */
+  .icon-box {
+    width: 46px; height: 46px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.15rem; flex-shrink: 0;
+  }
+  .ib-blue   { background: var(--blue-dim);   color: var(--blue); }
+  .ib-violet { background: var(--violet-dim); color: #a78bfa; }
+  .ib-green  { background: rgba(34,197,94,.1); color: var(--green); }
+  .ib-orange { background: rgba(251,146,60,.1);color: #fb923c; }
+  .ib-cyan   { background: rgba(34,211,238,.1);color: #22d3ee; }
+  .ib-rose   { background: rgba(251,113,133,.1);color: #fb7185; }
+
+  /* ================================================================
+     NAV
+  ================================================================ */
+  #nav {
+    position: fixed; inset: 0 0 auto;
+    z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+    padding-inline: clamp(1.25rem, 5vw, 3.5rem);
+    background: rgba(8,9,16,.82);
+    backdrop-filter: blur(20px) saturate(160%);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow .3s var(--ease);
+  }
+  #nav.shadow { box-shadow: 0 4px 32px rgba(0,0,0,.5); }
+
+  /* Logo mark */
+  .nav-brand {
+    display: flex; align-items: center; gap: 11px;
+    text-decoration: none;
+  }
+  .brand-mark {
+    width: 36px; height: 36px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--blue) 0%, var(--violet) 100%);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .brand-mark span {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: .82rem; font-weight: 800;
+    color: #fff; letter-spacing: .03em;
+  }
+  .brand-text { display: flex; flex-direction: column; line-height: 1; }
+  .brand-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: .95rem; font-weight: 700;
+    color: var(--hi); letter-spacing: -.01em;
+  }
+  .brand-sub {
+    font-size: .65rem; font-weight: 500;
+    color: var(--mid); letter-spacing: .04em;
+    text-transform: uppercase; margin-top: 2px;
+  }
+
+  .nav-links { display: flex; align-items: center; gap: 1.75rem; list-style: none; }
+  .nav-links a {
+    font-size: .87rem; font-weight: 500; color: var(--mid);
+    text-decoration: none; transition: color .2s var(--ease);
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+    height: 1.5px; background: var(--blue); border-radius: 1px;
+    transform: scaleX(0); transition: transform .2s var(--ease);
+  }
+  .nav-links a:hover       { color: var(--hi); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-links a.active      { color: var(--hi); }
+
+  .nav-cta {
+    background: var(--blue); color: #fff !important;
+    padding: 8px 18px; border-radius: var(--r-sm);
+    font-weight: 600 !important; font-size: .85rem !important;
+    transition: all .2s var(--ease) !important;
+  }
+  .nav-cta:hover { background: #2563eb !important; transform: translateY(-1px) !important; box-shadow: 0 4px 16px var(--blue-glow); }
+  .nav-cta::after { display: none !important; }
+
+  .hamburger { display: none; background: none; border: none; cursor: pointer; color: var(--mid); font-size: 1.2rem; padding: 4px; }
+
+  .mobile-nav {
+    display: none; position: fixed; inset: 68px 0 auto;
+    background: rgba(8,9,16,.97); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 199; flex-direction: column;
+    padding: 1.25rem; gap: 4px;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    padding: .75rem 1rem; border-radius: 8px;
+    font-weight: 500; color: var(--mid); text-decoration: none;
+    transition: all .2s var(--ease);
+  }
+  .mobile-nav a:hover { background: var(--glass); color: var(--hi); }
+  .mobile-nav .nav-cta { margin-top: .5rem; text-align: center; border-radius: var(--r-sm); }
+
+  /* ================================================================
+     HERO
+  ================================================================ */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 140px 0 100px;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 100% 55% at 50% -5%, rgba(59,130,246,.11) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 90% 85%, rgba(124,58,237,.07) 0%, transparent 55%);
+  }
+  .hero-dots {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size: 28px 28px;
+    -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 30%, black 0%, transparent 100%);
+    mask-image: radial-gradient(ellipse 85% 70% at 50% 30%, black 0%, transparent 100%);
+  }
+  .hero-inner {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .hero-left { max-width: 580px; }
+
+  .hero-available {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--glass); border: 1px solid var(--border);
+    padding: 5px 14px 5px 8px; border-radius: 99px;
+    font-size: .77rem; font-weight: 500; color: var(--mid);
+    margin-bottom: 1.75rem; backdrop-filter: blur(6px);
+  }
+  .status-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 0 2px rgba(34,197,94,.25);
+    animation: breathe 2.5s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes breathe { 0%,100%{box-shadow:0 0 0 2px rgba(34,197,94,.25);} 50%{box-shadow:0 0 0 5px rgba(34,197,94,.08);} }
+
+  .hero-left h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.8rem, 6.5vw, 4.8rem);
+    font-weight: 800; line-height: 1.06;
+    letter-spacing: -.035em; color: var(--hi);
+    margin-bottom: 1.4rem;
+  }
+  .hero-left p {
+    font-size: 1.05rem; color: var(--mid);
+    line-height: 1.8; margin-bottom: 2.25rem;
+    max-width: 500px;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: .85rem; margin-bottom: 3rem; }
+
+  .hero-metrics {
+    display: flex; gap: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .metric-val {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.7rem; font-weight: 800; color: var(--hi);
+    line-height: 1; letter-spacing: -.02em;
+  }
+  .metric-val em { color: var(--blue); font-style: normal; }
+  .metric-lbl { font-size: .72rem; color: var(--lo); margin-top: 4px; letter-spacing: .06em; text-transform: uppercase; }
+
+  /* Hero right: tech grid card */
+  .hero-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.75rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-card::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, var(--blue-dim) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-card-label {
+    font-size: .7rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--mid);
+    margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;
+  }
+  .hero-card-label::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 6px var(--green); flex-shrink: 0;
+  }
+  .service-rows { display: flex; flex-direction: column; gap: .6rem; }
+  .service-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--glass); border: 1px solid var(--border);
+    border-radius: 9px; padding: .7rem 1rem;
+    transition: border-color .2s var(--ease);
+  }
+  .service-row:hover { border-color: var(--border-hi); }
+  .service-row-left  { display: flex; align-items: center; gap: 10px; }
+  .service-row-icon  { width: 30px; height: 30px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: .85rem; flex-shrink: 0; }
+  .service-row-name  { font-size: .84rem; font-weight: 600; color: var(--hi); }
+  .service-row-sub   { font-size: .7rem; color: var(--mid); margin-top: 1px; }
+  .service-row-badge {
+    font-size: .67rem; font-weight: 700; letter-spacing: .06em;
+    text-transform: uppercase; padding: 3px 8px; border-radius: 99px;
+  }
+  .badge-core   { background: var(--blue-dim);   color: var(--blue); }
+  .badge-cloud  { background: rgba(34,211,238,.1);color: #22d3ee; }
+  .badge-sec    { background: rgba(124,58,237,.12);color: #a78bfa; }
+  .badge-it     { background: rgba(251,146,60,.1); color: #fb923c; }
+
+  .hero-card-footer {
+    margin-top: 1.25rem; padding-top: 1.1rem;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .hcf-location { font-size: .78rem; color: var(--mid); display: flex; align-items: center; gap: 6px; }
+  .hcf-location i { color: #f87171; font-size: .75rem; }
+  .hcf-link {
+    font-size: .78rem; font-weight: 600; color: var(--blue);
+    text-decoration: none; display: flex; align-items: center; gap: 5px;
+    transition: gap .2s var(--ease);
+  }
+  .hcf-link:hover { gap: 8px; }
+
+  /* ================================================================
+     SECTION: SERVICES
+  ================================================================ */
+  #services { padding: 110px 0; }
+  .section-header {
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: end; gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+  .section-header-left p { max-width: 520px; }
+
+  /* Featured (primary) service */
+  .featured-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    overflow: hidden; margin-bottom: 1.25rem;
+    transition: border-color .25s var(--ease);
+    position: relative;
+  }
+  .featured-card:hover { border-color: rgba(59,130,246,.35); }
+  .featured-card-accent {
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue) 0%, var(--violet) 100%);
+  }
+  .featured-card-inner {
+    display: grid; grid-template-columns: 280px 1fr;
+    gap: 0;
+  }
+  .featured-left {
+    padding: 2.25rem;
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+  }
+  .featured-eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--blue);
+    background: var(--blue-dim); border: 1px solid rgba(59,130,246,.2);
+    padding: 4px 10px; border-radius: 99px;
+    margin-bottom: 1.25rem; align-self: flex-start;
+  }
+  .featured-left .icon-box { width: 54px; height: 54px; border-radius: 12px; font-size: 1.3rem; margin-bottom: 1.1rem; }
+  .featured-left h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.25rem; font-weight: 700;
+    color: var(--hi); margin-bottom: .6rem;
+  }
+  .featured-left p { font-size: .87rem; color: var(--mid); line-height: 1.7; flex: 1; }
+  .featured-right { padding: 2.25rem; }
+  .featured-right > p { font-size: .9rem; color: var(--mid); line-height: 1.75; margin-bottom: 1.5rem; }
+  .checklist {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: .65rem;
+  }
+  .check-item {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: .85rem; color: var(--mid);
+  }
+  .check-item i {
+    color: var(--blue); font-size: .72rem;
+    margin-top: 3px; flex-shrink: 0;
+    background: var(--blue-dim); border-radius: 50%;
+    width: 16px; height: 16px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Service cards grid */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+  }
+  .svc-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 1.6rem;
+    transition: all .25s var(--ease);
+    position: relative; overflow: hidden;
+  }
+  .svc-card::after {
+    content: ''; position: absolute; inset: 0; opacity: 0;
+    transition: opacity .25s var(--ease); pointer-events: none;
+  }
+  .svc-blue::after   { background: radial-gradient(ellipse 80% 80% at 0% 0%, rgba(59,130,246,.06), transparent); }
+  .svc-violet::after { background: radial-gradient(ellipse 80% 80% at 0% 0%, rgba(124,58,237,.06), transparent); }
+  .svc-green::after  { background: radial-gradient(ellipse 80% 80% at 0% 0%, rgba(34,197,94,.05), transparent); }
+  .svc-orange::after { background: radial-gradient(ellipse 80% 80% at 0% 0%, rgba(251,146,60,.05), transparent); }
+  .svc-cyan::after   { background: radial-gradient(ellipse 80% 80% at 0% 0%, rgba(34,211,238,.05), transparent); }
+  .svc-card:hover { transform: translateY(-3px); border-color: var(--border-hi); }
+  .svc-card:hover::after { opacity: 1; }
+  .svc-card .icon-box { margin-bottom: 1rem; }
+  .svc-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem; font-weight: 700; color: var(--hi);
+    margin-bottom: .5rem; letter-spacing: -.01em;
+  }
+  .svc-card p { font-size: .84rem; color: var(--mid); line-height: 1.68; }
+  .svc-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 1rem; }
+
+  /* ================================================================
+     SECTION: PROJECTS
+  ================================================================ */
+  #projects {
+    padding: 110px 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(59,130,246,.02) 40%, transparent 100%);
+  }
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  /* Featured project (full width) */
+  .project-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: all .25s var(--ease);
+  }
+  .project-card:hover { transform: translateY(-4px); border-color: var(--border-hi); }
+  .project-card:hover .thumb-inner { transform: scale(1.04); }
+
+  .thumb {
+    height: 190px; overflow: hidden; position: relative; flex-shrink: 0;
+  }
+  .thumb-inner {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; transition: transform .4s var(--ease);
+  }
+  .t-race  { background: linear-gradient(140deg,#0d0d0d,#1a0600,#2d0e00); }
+  .t-arts  { background: linear-gradient(140deg,#0c0e1d,#0f1838,#0f2954); }
+  .t-sim   { background: linear-gradient(140deg,#0a0a1c,#0e0e2a,#12123a); }
+  .t-ootp  { background: linear-gradient(140deg,#001507,#002d11,#00421a); }
+
+  .thumb-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(8,9,16,.7) 0%, transparent 55%);
+  }
+  .thumb-badges {
+    position: absolute; top: 12px; left: 12px; right: 12px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .traffic-badge {
+    display: flex; align-items: center; gap: 5px;
+    background: rgba(8,9,16,.75); backdrop-filter: blur(8px);
+    border: 1px solid rgba(34,197,94,.25);
+    padding: 4px 10px; border-radius: 99px;
+    font-size: .68rem; font-weight: 700; color: var(--green);
+  }
+  .personal-badge {
+    display: flex; align-items: center; gap: 5px;
+    background: rgba(8,9,16,.75); backdrop-filter: blur(8px);
+    border: 1px solid var(--border);
+    padding: 4px 10px; border-radius: 99px;
+    font-size: .68rem; font-weight: 600; color: var(--mid);
+  }
+  .proj-link-btn {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,.92); color: #080910 !important;
+    padding: 7px 16px; border-radius: 7px;
+    font-weight: 700; font-size: .78rem; text-decoration: none;
+    transition: all .18s var(--ease);
+  }
+  .proj-link-btn:hover { background: #fff; transform: scale(1.04); }
+
+  .project-body { padding: 1.4rem 1.5rem; flex: 1; }
+  .project-type {
+    font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--blue); margin-bottom: .35rem;
+  }
+  .project-body h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem; font-weight: 700; color: var(--hi);
+    margin-bottom: .5rem; letter-spacing: -.01em;
+  }
+  .project-body p { font-size: .84rem; color: var(--mid); line-height: 1.68; }
+
+  .project-footer {
+    padding: .9rem 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  }
+  .pf-stack { display: flex; flex-wrap: wrap; gap: 5px; }
+  .ext-link {
+    font-size: .78rem; font-weight: 600; color: var(--mid);
+    text-decoration: none; display: flex; align-items: center; gap: 5px;
+    transition: color .2s; white-space: nowrap;
+  }
+  .ext-link:hover { color: var(--blue); }
+
+  /* ================================================================
+     SECTION: ABOUT
+  ================================================================ */
+  #about { padding: 110px 0; }
+  .about-grid {
+    display: grid; grid-template-columns: 5fr 7fr;
+    gap: 5rem; align-items: center;
+  }
+
+  .profile-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 2.25rem;
+    position: relative; overflow: hidden;
+  }
+  .profile-card::after {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 240px; height: 240px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,130,246,.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .profile-monogram {
+    width: 64px; height: 64px; border-radius: 14px;
+    background: linear-gradient(135deg, var(--blue), var(--violet));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem; font-weight: 800; color: #fff;
+    letter-spacing: .02em; margin-bottom: 1.25rem;
+  }
+  .profile-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem; font-weight: 700; color: var(--hi);
+    letter-spacing: -.01em; margin-bottom: .2rem;
+  }
+  .profile-title { font-size: .8rem; color: var(--blue); font-weight: 600; margin-bottom: 1rem; }
+  .profile-card > p { font-size: .86rem; color: var(--mid); line-height: 1.7; }
+
+  .profile-creds { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 1.2rem; }
+  .cred {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--glass); border: 1px solid var(--border);
+    padding: 5px 11px; border-radius: 8px;
+    font-size: .75rem; color: var(--mid);
+  }
+  .cred i { font-size: .78rem; }
+
+  .profile-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: .85rem; margin-top: 1.2rem;
+  }
+  .pstat {
+    background: var(--glass); border: 1px solid var(--border);
+    border-radius: 9px; padding: .9rem 1rem;
+  }
+  .pstat-val {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem; font-weight: 800; color: var(--hi); line-height: 1;
+    letter-spacing: -.02em;
+  }
+  .pstat-val em { color: var(--blue); font-style: normal; }
+  .pstat-lbl { font-size: .7rem; color: var(--lo); margin-top: 3px; }
+
+  .about-text .display { margin-bottom: 1.25rem; }
+  .about-text p { font-size: .93rem; color: var(--mid); line-height: 1.8; margin-bottom: .95rem; }
+  .about-text p:last-of-type { margin-bottom: 1.5rem; }
+  .location-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--glass); border: 1px solid var(--border);
+    padding: 9px 16px; border-radius: 99px;
+    font-size: .82rem; color: var(--mid);
+  }
+  .location-tag i { color: #f87171; }
+
+  /* ================================================================
+     SECTION: CONTACT
+  ================================================================ */
+  #contact { padding: 110px 0 80px; }
+  .contact-banner {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 2.5rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 2rem; flex-wrap: wrap;
+    margin-bottom: 3.5rem;
+    position: relative; overflow: hidden;
+  }
+  .contact-banner::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 60% 100% at 0% 50%, rgba(59,130,246,.06) 0%, transparent 60%);
+  }
+  .contact-banner-text h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700; color: var(--hi); margin-bottom: .35rem;
+  }
+  .contact-banner-text p { font-size: .9rem; color: var(--mid); }
+  .contact-banner-actions { display: flex; gap: .85rem; flex-wrap: wrap; flex-shrink: 0; }
+
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1.5fr;
+    gap: 2.5rem; align-items: start;
+  }
+
+  .contact-channels { display: flex; flex-direction: column; gap: .85rem; }
+  .channel {
+    display: flex; align-items: center; gap: 1rem;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem 1.25rem;
+    text-decoration: none; color: var(--hi);
+    transition: all .2s var(--ease);
+  }
+  .channel:hover { border-color: var(--blue); transform: translateX(4px); }
+  .channel-body strong { display: block; font-size: .86rem; font-weight: 600; color: var(--hi); }
+  .channel-body span   { font-size: .8rem; color: var(--mid); }
+
+  .form-wrap {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 2.25rem;
+  }
+  .form-wrap h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem; font-weight: 700; color: var(--hi);
+    margin-bottom: .35rem;
+  }
+  .form-wrap .form-intro {
+    font-size: .82rem; color: var(--mid); margin-bottom: 1.6rem;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .form-wrap .form-intro i { color: var(--blue); }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
+  .field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 1rem; }
+  .field label { font-size: .78rem; font-weight: 600; color: var(--mid); letter-spacing: .02em; }
+  .field input,
+  .field select,
+  .field textarea {
+    background: rgba(255,255,255,.03);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: 10px 13px;
+    font-size: .88rem; color: var(--hi);
+    font-family: 'Inter', sans-serif;
+    transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+    resize: vertical;
+  }
+  .field input::placeholder, .field textarea::placeholder { color: var(--lo); }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+  }
+  .field select option { background: #0d0f1e; }
+
+  .form-submit {
+    width: 100%;
+    padding: 13px 20px;
+    background: var(--blue); color: #fff;
+    border: none; border-radius: var(--r-sm);
+    font-family: 'Inter', sans-serif;
+    font-size: .9rem; font-weight: 700;
+    cursor: pointer; letter-spacing: .01em;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all .22s var(--ease);
+  }
+  .form-submit:hover { background: #2563eb; box-shadow: 0 6px 22px var(--blue-glow); transform: translateY(-2px); }
+  .form-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  .form-note {
+    display: flex; align-items: flex-start; gap: 7px;
+    margin-top: .85rem;
+    font-size: .75rem; color: var(--lo); line-height: 1.5;
+  }
+  .form-note i { color: var(--blue); margin-top: 2px; flex-shrink: 0; }
+
+  /* ================================================================
+     FOOTER
+  ================================================================ */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.25rem 0;
+    position: relative; z-index: 1;
+  }
+  .footer-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-copy { font-size: .8rem; color: var(--lo); }
+  .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .footer-links a {
+    font-size: .8rem; color: var(--lo); text-decoration: none;
+    transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--hi); }
+
+  /* ================================================================
+     FADE-IN ANIMATION
+  ================================================================ */
+  .fi { opacity: 0; transform: translateY(24px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+  .fi.in { opacity: 1; transform: none; }
+  .fi-d1 { transition-delay: .08s; }
+  .fi-d2 { transition-delay: .16s; }
+  .fi-d3 { transition-delay: .24s; }
+  .fi-d4 { transition-delay: .32s; }
+
+  /* ================================================================
+     RESPONSIVE
+  ================================================================ */
+  @media (max-width: 1024px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .featured-card-inner { grid-template-columns: 1fr; }
+    .featured-left { border-right: none; border-bottom: 1px solid var(--border); }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    #nav .nav-links { display: none; }
+    .hamburger { display: block; }
+    .services-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .checklist { grid-template-columns: 1fr; }
+    .section-header { grid-template-columns: 1fr; }
+    .contact-banner { flex-direction: column; align-items: flex-start; }
+    .hero-metrics { gap: 1.5rem; }
+    .field-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .hero-actions { flex-direction: column; }
+    .btn { justify-content: center; }
+    .profile-stats { grid-template-columns: 1fr 1fr; }
+    .contact-banner-actions { flex-direction: column; width: 100%; }
+    .contact-banner-actions .btn { justify-content: center; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════════════════════════════════════════ -->
+<nav id="nav">
+  <a href="#hero" class="nav-brand">
+    <div class="brand-mark"><span>PE</span></div>
+    <div class="brand-text">
+      <span class="brand-name">Phillip Ellis</span>
+      <span class="brand-sub">Web &amp; IT Services</span>
+    </div>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+
+  <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Toggle menu">
+    <i class="fa-solid fa-bars" id="hamburgerIcon"></i>
+  </button>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#hero"     onclick="closeNav()">Home</a>
+  <a href="#services" onclick="closeNav()">Services</a>
+  <a href="#projects" onclick="closeNav()">Projects</a>
+  <a href="#about"    onclick="closeNav()">About</a>
+  <a href="#contact"  onclick="closeNav()" class="nav-cta">Get in Touch</a>
+</div>
+
+
+<!-- ═══════════ HERO ══════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-dots"></div>
+
+  <div class="container">
+    <div class="hero-inner">
+      <!-- Left -->
+      <div class="hero-left">
+        <div class="hero-available">
+          <span class="status-dot"></span>
+          Available for new projects &mdash; Dawsonville, GA
+        </div>
+
+        <h1>
+          Clean websites.<br />
+          Solid IT.<br />
+          <span class="grad">Results you can measure.</span>
+        </h1>
+
+        <p>
+          I build and host custom websites for small businesses, and manage the IT infrastructure
+          behind them &mdash; from VPS setup and domain config to Microsoft 365 and Google Workspace.
+          Based in north Georgia, working with clients everywhere.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">
+            <i class="fa-solid fa-paper-plane"></i> Start a Project
+          </a>
+          <a href="#services" class="btn btn-ghost">
+            <i class="fa-solid fa-list-check"></i> Explore Services
+          </a>
+        </div>
+
+        <div class="hero-metrics">
+          <div>
+            <div class="metric-val">10<em>+</em></div>
+            <div class="metric-lbl">Years in IT</div>
+          </div>
+          <div>
+            <div class="metric-val">3<em>k+</em></div>
+            <div class="metric-lbl">Monthly Visitors<br>Across Projects</div>
+          </div>
+          <div>
+            <div class="metric-val">24<em>/7</em></div>
+            <div class="metric-lbl">Support</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: services summary card -->
+      <div class="hero-right fi fi-d2">
+        <div class="hero-card">
+          <div class="hero-card-label">Services at a glance</div>
+          <div class="service-rows">
+            <div class="service-row">
+              <div class="service-row-left">
+                <div class="service-row-icon ib-blue"><i class="fa-solid fa-code"></i></div>
+                <div>
+                  <div class="service-row-name">Web Dev &amp; Hosting</div>
+                  <div class="service-row-sub">Custom sites on your own VPS</div>
+                </div>
+              </div>
+              <span class="service-row-badge badge-core">Core</span>
+            </div>
+            <div class="service-row">
+              <div class="service-row-left">
+                <div class="service-row-icon ib-blue"><i class="fa-brands fa-microsoft"></i></div>
+                <div>
+                  <div class="service-row-name">Microsoft 365</div>
+                  <div class="service-row-sub">Deployment &amp; admin</div>
+                </div>
+              </div>
+              <span class="service-row-badge badge-cloud">Cloud</span>
+            </div>
+            <div class="service-row">
+              <div class="service-row-left">
+                <div class="service-row-icon ib-violet"><i class="fa-brands fa-google"></i></div>
+                <div>
+                  <div class="service-row-name">Google Workspace</div>
+                  <div class="service-row-sub">Setup &amp; migration</div>
+                </div>
+              </div>
+              <span class="service-row-badge badge-cloud">Cloud</span>
+            </div>
+            <div class="service-row">
+              <div class="service-row-left">
+                <div class="service-row-icon ib-violet"><i class="fa-solid fa-shield-halved"></i></div>
+                <div>
+                  <div class="service-row-name">Cybersecurity</div>
+                  <div class="service-row-sub">Endpoint protection &amp; MFA</div>
+                </div>
+              </div>
+              <span class="service-row-badge badge-sec">Security</span>
+            </div>
+            <div class="service-row">
+              <div class="service-row-left">
+                <div class="service-row-icon ib-orange"><i class="fa-solid fa-headset"></i></div>
+                <div>
+                  <div class="service-row-name">Managed IT</div>
+                  <div class="service-row-sub">Ongoing support &amp; monitoring</div>
+                </div>
+              </div>
+              <span class="service-row-badge badge-it">IT</span>
+            </div>
+          </div>
+          <div class="hero-card-footer">
+            <span class="hcf-location"><i class="fa-solid fa-location-dot"></i> Dawsonville, GA</span>
+            <a href="#contact" class="hcf-link">Get a quote <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ SERVICES ══════════════════════════════════════════ -->
+<section id="services">
+  <div class="container">
+    <div class="section-header fi">
+      <div class="section-header-left">
+        <div class="label">Services</div>
+        <div class="display">What I build &amp; manage</div>
+        <p class="body-text" style="margin-top:.75rem;">
+          Web development and hosting is the core of what I do &mdash; backed by deep IT experience
+          to keep everything running reliably behind the scenes.
+        </p>
+      </div>
+      <a href="#contact" class="btn btn-ghost" style="flex-shrink:0">
+        <i class="fa-solid fa-paper-plane"></i> Get a Quote
+      </a>
+    </div>
+
+    <!-- Featured service -->
+    <div class="featured-card fi">
+      <div class="featured-card-accent"></div>
+      <div class="featured-card-inner">
+        <div class="featured-left">
+          <span class="featured-eyebrow"><i class="fa-solid fa-star"></i> Primary Specialty</span>
+          <div class="icon-box ib-blue"><i class="fa-solid fa-code"></i></div>
+          <h3>Web Development &amp; Hosting</h3>
+          <p>
+            Custom-built websites hosted on dedicated VPS infrastructure &mdash; fully configured,
+            secured, and maintained by me. One person, full accountability.
+          </p>
+        </div>
+        <div class="featured-right">
+          <p>
+            I design and develop sites from scratch or rebuild existing ones, then host them on VPS
+            servers I configure and manage directly. You get a fast, secure site on infrastructure
+            you own &mdash; with ongoing maintenance so it never goes stale.
+          </p>
+          <div class="checklist">
+            <div class="check-item"><i class="fa-solid fa-check"></i>Custom design &amp; development</div>
+            <div class="check-item"><i class="fa-solid fa-check"></i>VPS setup &amp; hardening</div>
+            <div class="check-item"><i class="fa-solid fa-check"></i>Domain, DNS &amp; SSL management</div>
+            <div class="check-item"><i class="fa-solid fa-check"></i>WordPress &amp; headless CMS</div>
+            <div class="check-item"><i class="fa-solid fa-check"></i>React &amp; modern web apps</div>
+            <div class="check-item"><i class="fa-solid fa-check"></i>E-commerce &amp; integrations</div>
+            <div class="check-item"><i class="fa-solid fa-check"></i>SEO &amp; performance tuning</div>
+            <div class="check-item"><i class="fa-solid fa-check"></i>Ongoing maintenance plans</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other services -->
+    <div class="services-grid">
+      <div class="svc-card svc-blue fi fi-d1">
+        <div class="icon-box ib-blue"><i class="fa-solid fa-headset"></i></div>
+        <h3>Managed IT Services</h3>
+        <p>Proactive monitoring, helpdesk support, and day-to-day IT management. I keep your systems running so you can focus on your business.</p>
+        <div class="svc-tags">
+          <span class="tag">Helpdesk</span><span class="tag">Monitoring</span><span class="tag">Patch Mgmt</span>
+        </div>
+      </div>
+
+      <div class="svc-card svc-blue fi fi-d2">
+        <div class="icon-box ib-blue"><i class="fa-brands fa-microsoft"></i></div>
+        <h3>Microsoft 365</h3>
+        <p>Full M365 deployment, licensing, and ongoing admin. Exchange, Teams, SharePoint, and Entra ID &mdash; configured properly from day one.</p>
+        <div class="svc-tags">
+          <span class="tag">Exchange Online</span><span class="tag">Teams</span><span class="tag">SharePoint</span>
+        </div>
+      </div>
+
+      <div class="svc-card svc-violet fi fi-d3">
+        <div class="icon-box ib-violet"><i class="fa-brands fa-google"></i></div>
+        <h3>Google Workspace</h3>
+        <p>Workspace setup, user management, migrations from legacy mail, and admin console configuration for your whole team.</p>
+        <div class="svc-tags">
+          <span class="tag">Gmail</span><span class="tag">Drive</span><span class="tag">Admin Console</span>
+        </div>
+      </div>
+
+      <div class="svc-card svc-green fi fi-d1">
+        <div class="icon-box ib-green"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3>Cybersecurity</h3>
+        <p>Endpoint protection, MFA rollout, security audits, and phishing-awareness training to protect your team from modern threats.</p>
+        <div class="svc-tags">
+          <span class="tag">EDR</span><span class="tag">MFA</span><span class="tag">Security Audit</span>
+        </div>
+      </div>
+
+      <div class="svc-card svc-orange fi fi-d2">
+        <div class="icon-box ib-orange"><i class="fa-solid fa-cloud"></i></div>
+        <h3>Cloud &amp; Infrastructure</h3>
+        <p>Cloud migrations, Azure and AWS environment setup, VPN and network design &mdash; built to scale as your business grows.</p>
+        <div class="svc-tags">
+          <span class="tag">Azure</span><span class="tag">AWS</span><span class="tag">Networking</span>
+        </div>
+      </div>
+
+      <div class="svc-card svc-cyan fi fi-d3">
+        <div class="icon-box ib-cyan"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+        <h3>IT Consulting</h3>
+        <p>Not sure what you need? I'll audit your current setup and give you a clear, practical plan in plain English &mdash; no sales pitch.</p>
+        <div class="svc-tags">
+          <span class="tag">Assessment</span><span class="tag">Roadmap</span><span class="tag">Vendor Review</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ PROJECTS ══════════════════════════════════════════ -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header fi">
+      <div class="section-header-left">
+        <div class="label">Portfolio</div>
+        <div class="display">Projects &amp; work</div>
+        <p class="body-text" style="margin-top:.75rem;">
+          Sites, platforms, and tools I've designed, built, and shipped.
+        </p>
+      </div>
+      <a href="#contact" class="btn btn-ghost" style="flex-shrink:0">
+        <i class="fa-solid fa-plus"></i> Start Your Project
+      </a>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- RaceDex -->
+      <div class="project-card fi fi-d1">
+        <div class="thumb">
+          <div class="thumb-inner t-race">
+            <i class="fa-solid fa-flag-checkered" style="color:rgba(255,255,255,.2)"></i>
+          </div>
+          <div class="thumb-overlay"></div>
+          <div class="thumb-badges">
+            <div class="traffic-badge"><i class="fa-solid fa-arrow-trend-up"></i> 2,000+ visits/mo &amp; growing</div>
+            <a href="https://racedex.gg" target="_blank" rel="noopener" class="proj-link-btn">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit
+            </a>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-type">Sports / Web App</div>
+          <h3>Racedex.gg</h3>
+          <p>A motorsports data and community platform for racing fans. Custom-built and hosted on VPS — pulling in 2,000+ monthly visitors and growing steadily.</p>
+        </div>
+        <div class="project-footer">
+          <div class="pf-stack"><span class="tag">React</span><span class="tag">Data API</span><span class="tag">VPS</span></div>
+          <a href="https://racedex.gg" target="_blank" rel="noopener" class="ext-link">racedex.gg <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+      </div>
+
+      <!-- UnionArts -->
+      <div class="project-card fi fi-d2">
+        <div class="thumb">
+          <div class="thumb-inner t-arts">
+            <i class="fa-solid fa-palette" style="color:rgba(255,255,255,.2)"></i>
+          </div>
+          <div class="thumb-overlay"></div>
+          <div class="thumb-badges">
+            <div class="traffic-badge"><i class="fa-solid fa-arrow-trend-up"></i> 1,000+ visits/mo &amp; growing</div>
+            <a href="https://unionarts.org" target="_blank" rel="noopener" class="proj-link-btn">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit
+            </a>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-type">Nonprofit / Arts</div>
+          <h3>UnionArts.org</h3>
+          <p>Full website design and development for a nonprofit arts organization. Built for community engagement, event promotion, and long-term growth.</p>
+        </div>
+        <div class="project-footer">
+          <div class="pf-stack"><span class="tag">Web Design</span><span class="tag">CMS</span><span class="tag">SEO</span></div>
+          <a href="https://unionarts.org" target="_blank" rel="noopener" class="ext-link">unionarts.org <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+      </div>
+
+      <!-- Polsimer Plugin -->
+      <div class="project-card fi fi-d3">
+        <div class="thumb">
+          <div class="thumb-inner t-sim">
+            <i class="fa-solid fa-microchip" style="color:rgba(255,255,255,.2)"></i>
+          </div>
+          <div class="thumb-overlay"></div>
+          <div class="thumb-badges">
+            <div class="personal-badge"><i class="fa-brands fa-github"></i> Open Source</div>
+            <a href="https://github.com/gpellis87/racedex-polsimer-simhub-plugin" target="_blank" rel="noopener" class="proj-link-btn">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-type">Open Source / SimRacing</div>
+          <h3>Polsimer SimHub Plugin</h3>
+          <p>An open-source SimHub plugin that bridges Polsimer simulation data into the RaceDex ecosystem, surfacing real-time telemetry and race stats for the sim racing community.</p>
+        </div>
+        <div class="project-footer">
+          <div class="pf-stack"><span class="tag">C#</span><span class="tag">SimHub</span><span class="tag">Open Source</span></div>
+          <a href="https://github.com/gpellis87/racedex-polsimer-simhub-plugin" target="_blank" rel="noopener" class="ext-link">View on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+      </div>
+
+      <!-- OOTP -->
+      <div class="project-card fi fi-d1">
+        <div class="thumb">
+          <div class="thumb-inner t-ootp">
+            <i class="fa-solid fa-baseball" style="color:rgba(255,255,255,.2)"></i>
+          </div>
+          <div class="thumb-overlay"></div>
+          <div class="thumb-badges">
+            <div class="personal-badge"><i class="fa-solid fa-lock"></i> Personal Project</div>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-type">Personal Project / Baseball</div>
+          <h3>OOTP Baseball Portal</h3>
+          <p>A local web app built on FastAPI and React for managing Out of the Park Baseball franchise data — live standings, player stats, and team tracking.</p>
+        </div>
+        <div class="project-footer">
+          <div class="pf-stack"><span class="tag">FastAPI</span><span class="tag">React</span><span class="tag">Python</span></div>
+          <span class="ext-link" style="cursor:default;opacity:.5">Personal use</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ ABOUT ═════════════════════════════════════════════ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="fi">
+        <div class="profile-card">
+          <div class="profile-monogram">PE</div>
+          <h3>Phillip Ellis</h3>
+          <div class="profile-title">Web Developer &amp; IT Professional</div>
+          <p>Helping small businesses in Georgia and beyond build a strong web presence and run reliable IT &mdash; without the enterprise price tag.</p>
+          <div class="profile-creds">
+            <div class="cred"><i class="fa-brands fa-microsoft" style="color:#0078d4"></i> Formerly @ Microsoft</div>
+            <div class="cred"><i class="fa-solid fa-server" style="color:#22c55e"></i> VPS Hosting</div>
+            <div class="cred"><i class="fa-solid fa-shield-halved" style="color:#a78bfa"></i> Security Focused</div>
+            <div class="cred"><i class="fa-solid fa-map-marker-alt" style="color:#f87171"></i> Dawsonville, GA</div>
+          </div>
+          <div class="profile-stats">
+            <div class="pstat">
+              <div class="pstat-val">10<em>+</em></div>
+              <div class="pstat-lbl">Years in IT</div>
+            </div>
+            <div class="pstat">
+              <div class="pstat-val">3<em>k+</em></div>
+              <div class="pstat-lbl">Monthly Visitors</div>
+            </div>
+            <div class="pstat">
+              <div class="pstat-val">24<em>/7</em></div>
+              <div class="pstat-lbl">Available</div>
+            </div>
+            <div class="pstat">
+              <div class="pstat-val"><i class="fa-brands fa-github" style="font-size:1.3rem;color:var(--blue)"></i></div>
+              <div class="pstat-lbl">Open Source</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-text fi fi-d2">
+        <div class="label">About</div>
+        <div class="display">The person behind the work</div>
+        <p>
+          I'm Phillip Ellis &mdash; a web developer and IT professional with over a decade of experience, including time working at Microsoft. I now focus on helping small businesses get technology that actually serves them.
+        </p>
+        <p>
+          My primary focus is building and hosting websites that drive real, measurable traffic. The projects I've launched are pulling in thousands of monthly visitors and growing. I handle everything myself: design, development, VPS configuration, DNS, SSL, and long-term maintenance &mdash; so you deal with one person, not three vendors.
+        </p>
+        <p>
+          On the IT side, I've deployed Microsoft 365 and Google Workspace environments, built cloud infrastructure on Azure and AWS, and provided the kind of straight-talking support that keeps small teams productive. No jargon, no upselling &mdash; just practical solutions that fit your size and budget.
+        </p>
+        <div class="location-tag">
+          <i class="fa-solid fa-location-dot"></i>
+          Dawsonville, GA &mdash; on-site &amp; remote clients welcome
+        </div>
+        <div style="margin-top:1.75rem;">
+          <a href="#contact" class="btn btn-primary">
+            <i class="fa-solid fa-handshake"></i> Let's Work Together
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ CONTACT ═══════════════════════════════════════════ -->
+<section id="contact">
+  <div class="container">
+    <!-- Banner CTA -->
+    <div class="contact-banner fi">
+      <div class="contact-banner-text">
+        <h2>Ready to get started?</h2>
+        <p>Send a message below, or reach out directly &mdash; I typically respond the same day.</p>
+      </div>
+      <div class="contact-banner-actions">
+        <a href="mailto:PhillipEllis@Outlook.com" class="btn btn-primary">
+          <i class="fa-solid fa-envelope"></i> Email Me Directly
+        </a>
+        <a href="tel:7044919881" class="btn btn-ghost">
+          <i class="fa-solid fa-phone"></i> (704) 491-9881
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Left: channels -->
+      <div class="fi">
+        <div class="label">Direct Contact</div>
+        <div class="heading" style="font-size:1.15rem; margin-bottom:.5rem; color:var(--hi)">Prefer to reach out directly?</div>
+        <p class="body-text" style="margin-bottom:1.5rem;">
+          Both channels go straight to me. No ticketing system, no queue &mdash; just a real person.
+        </p>
+        <div class="contact-channels">
+          <a href="mailto:PhillipEllis@Outlook.com" class="channel">
+            <div class="icon-box ib-blue"><i class="fa-solid fa-envelope"></i></div>
+            <div class="channel-body">
+              <strong>Email</strong>
+              <span>PhillipEllis@Outlook.com</span>
+            </div>
+          </a>
+          <a href="tel:7044919881" class="channel">
+            <div class="icon-box ib-green"><i class="fa-solid fa-phone"></i></div>
+            <div class="channel-body">
+              <strong>Call or Text</strong>
+              <span>(704) 491-9881</span>
+            </div>
+          </a>
+          <div class="channel" style="cursor:default">
+            <div class="icon-box ib-violet"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="channel-body">
+              <strong>Location</strong>
+              <span>Dawsonville, GA &mdash; on-site &amp; remote</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="form-wrap fi fi-d2">
+        <h3>Send a Message</h3>
+        <p class="form-intro">
+          <i class="fa-solid fa-circle-info"></i>
+          Clicking "Send" opens your email app with this message pre-filled — no accounts, no CAPTCHA.
+        </p>
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="field-row">
+            <div class="field">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" placeholder="John" required />
+            </div>
+            <div class="field">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" placeholder="Smith" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" placeholder="john@company.com" required />
+          </div>
+          <div class="field">
+            <label for="phone">Phone <span style="font-weight:400;color:var(--lo)">(optional)</span></label>
+            <input type="tel" id="phone" placeholder="(555) 000-0000" />
+          </div>
+          <div class="field">
+            <label for="service">I'm interested in</label>
+            <select id="service">
+              <option value="">Select a service...</option>
+              <option>Web Development &amp; Hosting</option>
+              <option>Managed IT Services</option>
+              <option>Microsoft 365</option>
+              <option>Google Workspace</option>
+              <option>Cybersecurity</option>
+              <option>Cloud / Infrastructure</option>
+              <option>IT Consulting</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" rows="4" placeholder="Tell me about your project or what you need help with..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="sendBtn">
+            <i class="fa-solid fa-envelope-open-text"></i> Send Message
+          </button>
+          <div class="form-note">
+            <i class="fa-solid fa-circle-info"></i>
+            This opens in your default email app (Outlook, Gmail, Apple Mail) with the message already written. Just hit send.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ FOOTER ════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#hero" class="nav-brand" style="text-decoration:none">
+        <div class="brand-mark" style="width:28px;height:28px;border-radius:7px;font-size:.75rem"><span style="font-size:.72rem">PE</span></div>
+        <div class="brand-text">
+          <span class="brand-name" style="font-size:.88rem">Phillip Ellis</span>
+          <span class="brand-sub">Web &amp; IT Services</span>
+        </div>
+      </a>
+      <p class="footer-copy">&copy; 2025 Phillip Ellis &mdash; Dawsonville, GA</p>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="mailto:PhillipEllis@Outlook.com">Email</a>
+        <a href="tel:7044919881">(704) 491-9881</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════ SCRIPTS ═══════════════════════════════════════════ -->
+<script>
+  // Nav shadow on scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('shadow', scrollY > 10), { passive: true });
+
+  // Mobile nav
+  function toggleNav() {
+    const open = document.getElementById('mobileNav').classList.toggle('open');
+    document.getElementById('hamburgerIcon').className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+  }
+  function closeNav() {
+    document.getElementById('mobileNav').classList.remove('open');
+    document.getElementById('hamburgerIcon').className = 'fa-solid fa-bars';
+  }
+
+  // Intersection observer: fade-in
+  const io = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.fi').forEach(el => io.observe(el));
+
+  // Active nav link tracking
+  const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+  const secs = [...document.querySelectorAll('section[id]')];
+  window.addEventListener('scroll', () => {
+    const y = scrollY + 100;
+    secs.forEach(s => {
+      const link = document.querySelector(`.nav-links a[href="#${s.id}"]`);
+      if (!link) return;
+      const active = y >= s.offsetTop && y < s.offsetTop + s.offsetHeight;
+      link.classList.toggle('active', active);
+    });
+  }, { passive: true });
+
+  // Contact form → mailto (no backend, no CAPTCHA)
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('sendBtn');
+
+    const first   = document.getElementById('fname').value.trim();
+    const last    = document.getElementById('lname').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const service = document.getElementById('service').value;
+    const message = document.getElementById('message').value.trim();
+
+    if (!first || !email || !message) return;
+
+    const subject = `Inquiry${service ? ': ' + service : ''} — ${first} ${last}`.trim();
+    const lines = [
+      `Name: ${first} ${last}`,
+      `Email: ${email}`,
+      phone   ? `Phone: ${phone}`     : null,
+      service ? `Service: ${service}` : null,
+      '',
+      message,
+    ].filter(l => l !== null);
+
+    window.location.href =
+      `mailto:PhillipEllis@Outlook.com` +
+      `?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(lines.join('\n'))}`;
+
+    // Brief visual feedback
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> Opening your email app…';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = '<i class="fa-solid fa-envelope-open-text"></i> Send Message';
+      btn.disabled = false;
+    }, 3500);
+  }
+</script>
+</body>
+</html>
