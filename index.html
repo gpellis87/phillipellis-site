@@ -362,20 +362,53 @@ body{
 ══════════════════════════════════════════════════════ */
 #services{padding:110px 0}
 
-/* Bento grid */
-.bento{
+/* Featured (web dev) horizontal card */
+.feat-card{
+  background:var(--srf);border:1px solid var(--border);
+  border-radius:var(--r);backdrop-filter:blur(16px);
+  overflow:hidden;margin-bottom:12px;
+  position:relative;
+  transition:border-color .25s var(--ease);
+}
+.feat-card:hover{border-color:rgba(99,102,241,.3)}
+.feat-card-accent{height:2px;background:linear-gradient(90deg,var(--indigo),var(--cyan),var(--violet))}
+.feat-card-inner{
+  display:grid;grid-template-columns:300px 1fr;
+}
+.feat-left{
+  padding:2rem;border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+}
+.feat-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--ind-dim);border:1px solid rgba(99,102,241,.2);
+  color:var(--indigo);padding:3px 10px;border-radius:99px;
+  font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:1.1rem;align-self:flex-start;
+}
+.feat-left .icon-box{width:52px;height:52px;border-radius:12px;font-size:1.25rem;margin-bottom:1rem}
+.feat-left h3{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.2rem;font-weight:800;color:var(--text);
+  letter-spacing:-.02em;margin-bottom:.5rem;
+}
+.feat-left p{font-size:.84rem;color:var(--text-2);line-height:1.7;flex:1}
+.feat-right{padding:2rem}
+.feat-right>p{font-size:.88rem;color:var(--text-2);line-height:1.75;margin-bottom:1.4rem}
+.checklist{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+.ci{display:flex;align-items:flex-start;gap:7px;font-size:.8rem;color:var(--text-2)}
+.ci-dot{
+  width:15px;height:15px;border-radius:50%;flex-shrink:0;margin-top:2px;
+  background:var(--ind-dim);color:var(--indigo);
+  display:flex;align-items:center;justify-content:center;font-size:.52rem;
+}
+
+/* Equal services grid */
+.svc-grid{
   display:grid;
-  grid-template-columns:repeat(6,1fr);
-  grid-template-rows:auto auto auto;
+  grid-template-columns:repeat(3,1fr);
   gap:12px;
 }
-.b-web    {grid-column:span 4;grid-row:span 2}
-.b-m365   {grid-column:span 2}
-.b-gws    {grid-column:span 2}
-.b-sec    {grid-column:span 2}
-.b-it     {grid-column:span 2}
-.b-cloud  {grid-column:span 3}
-.b-consult{grid-column:span 3}
 
 .glass-card{
   background:var(--srf);
@@ -383,8 +416,7 @@ body{
   border-radius:var(--r);
   backdrop-filter:blur(16px);
   transition:border-color .25s var(--ease),background .25s var(--ease),transform .25s var(--ease);
-  overflow:hidden;
-  position:relative;
+  overflow:hidden;position:relative;
 }
 .glass-card::before{
   content:'';position:absolute;inset:0;opacity:0;
@@ -406,43 +438,31 @@ body{
   font-size:1.1rem;flex-shrink:0;margin-bottom:.9rem;
 }
 
-/* Featured web dev bento card */
-.b-web .card-inner{
-  padding:2rem;height:100%;
-  display:flex;flex-direction:column;
-}
-.b-web .icon-box{width:54px;height:54px;border-radius:13px;font-size:1.3rem;margin-bottom:1.25rem}
-.b-web .feat-badge{
-  display:inline-flex;align-items:center;gap:5px;
-  background:var(--ind-dim);border:1px solid rgba(99,102,241,.2);
-  color:var(--indigo);padding:3px 10px;border-radius:99px;
-  font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  margin-bottom:1.1rem;align-self:flex-start;
-}
-.b-web h3{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:1.35rem;font-weight:800;color:var(--text);
-  letter-spacing:-.02em;margin-bottom:.6rem;
-}
-.b-web .body{margin-bottom:1.25rem}
-.checklist{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:1.5rem}
-.ci{display:flex;align-items:flex-start;gap:7px;font-size:.8rem;color:var(--text-2)}
-.ci-dot{
-  width:15px;height:15px;border-radius:50%;flex-shrink:0;margin-top:1px;
-  background:var(--ind-dim);color:var(--indigo);
-  display:flex;align-items:center;justify-content:center;font-size:.55rem;
-}
-.b-web .spacer{flex:1}
-
-/* Small bento cards */
-.sm-card{padding:1.4rem 1.4rem 1.3rem}
+/* Equal grid cards */
+.sm-card{padding:1.5rem}
 .sm-card h3{
   font-family:'Space Grotesk',sans-serif;
   font-size:.97rem;font-weight:700;color:var(--text);
   letter-spacing:-.01em;margin-bottom:.45rem;
 }
-.sm-card p{font-size:.8rem;color:var(--text-2);line-height:1.65}
-.sm-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:.85rem}
+.sm-card p{font-size:.81rem;color:var(--text-2);line-height:1.68}
+.sm-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:.9rem}
+
+/* Cert strip */
+.cert-strip{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-top:1.25rem;padding-top:1.25rem;
+  border-top:1px solid var(--border);
+}
+.cert-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  padding:5px 11px;border-radius:8px;
+  font-size:.72rem;font-weight:600;color:var(--text-2);
+  transition:border-color .2s var(--ease),color .2s var(--ease);
+}
+.cert-badge:hover{border-color:var(--border-h);color:var(--text)}
+.cert-badge i{font-size:.74rem}
 
 /* ══════════════════════════════════════════════════════
    PROJECTS
@@ -721,10 +741,9 @@ footer{
 @media(max-width:1024px){
   .hero-inner{grid-template-columns:1fr}
   .hero-right{display:none}
-  .bento{grid-template-columns:repeat(2,1fr)}
-  .b-web{grid-column:span 2;grid-row:span 1}
-  .b-web .checklist{grid-template-columns:repeat(4,1fr)}
-  .b-m365,.b-gws,.b-sec,.b-it,.b-cloud,.b-consult{grid-column:span 1}
+  .feat-card-inner{grid-template-columns:1fr}
+  .feat-left{border-right:none;border-bottom:1px solid var(--border)}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
   .about-grid{grid-template-columns:1fr;gap:3rem}
   .contact-grid{grid-template-columns:1fr}
   .contact-banner{flex-direction:column;align-items:flex-start}
@@ -732,13 +751,16 @@ footer{
 @media(max-width:768px){
   #nav .nav-links{display:none}
   .hamburger{display:block}
-  .bento{grid-template-columns:1fr}
-  .b-web,.b-m365,.b-gws,.b-sec,.b-it,.b-cloud,.b-consult{grid-column:span 1;grid-row:span 1}
-  .b-web .checklist{grid-template-columns:1fr 1fr}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .checklist{grid-template-columns:1fr 1fr}
   .proj-grid{grid-template-columns:1fr}
   .field-row{grid-template-columns:1fr}
   .hero-metrics{gap:1.5rem}
   .sh-row{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:560px){
+  .svc-grid{grid-template-columns:1fr}
+  .checklist{grid-template-columns:1fr}
 }
 @media(max-width:480px){
   .hero-btns{flex-direction:column}
@@ -803,9 +825,8 @@ footer{
         </h1>
 
         <p class="body-lg" style="margin-top:1.4rem">
-          Custom websites, VPS hosting, and IT services for small businesses.
-          I handle everything — design, code, server, domain, and ongoing maintenance —
-          so you only need one person.
+          Custom websites, VPS hosting, and IT services — backed by 15+ years of enterprise cloud experience at Microsoft.
+          I handle everything end-to-end, so you only ever need one person.
         </p>
 
         <div class="hero-btns">
@@ -819,7 +840,7 @@ footer{
 
         <div class="hero-metrics">
           <div>
-            <div class="met-val">10<em>+</em></div>
+            <div class="met-val">15<em>+</em></div>
             <div class="met-lbl">Years in IT</div>
           </div>
           <div>
@@ -917,20 +938,20 @@ footer{
       </div>
     </div>
 
-    <div class="bento">
-
-      <!-- Web Dev: featured, spans 4 wide × 2 tall -->
-      <div class="glass-card b-web tint-ind fi">
-        <div class="card-inner">
+    <!-- Featured: Web Dev & Hosting -->
+    <div class="feat-card fi">
+      <div class="feat-card-accent"></div>
+      <div class="feat-card-inner">
+        <div class="feat-left">
           <span class="feat-badge"><i class="fa-solid fa-star"></i> Primary Specialty</span>
           <div class="icon-box ic-ind"><i class="fa-solid fa-code"></i></div>
           <h3>Web Development &amp; Hosting</h3>
-          <p class="body" style="margin-bottom:1.25rem">
-            I design and build custom websites, then host them on VPS infrastructure I configure and manage directly.
-            One person. Full ownership. No juggling vendors.
-          </p>
+          <p>Custom websites built from scratch and hosted on VPS infrastructure I configure and manage directly. One person — full ownership, no juggling vendors.</p>
+        </div>
+        <div class="feat-right">
+          <p>I design and build sites that actually get found, then host them on servers I set up and maintain myself. You get fast, secure infrastructure on hardware you own — with someone who answers the phone when something goes wrong.</p>
           <div class="checklist">
-            <div class="ci"><div class="ci-dot"><i class="fa-solid fa-check"></i></div>Custom design &amp; build</div>
+            <div class="ci"><div class="ci-dot"><i class="fa-solid fa-check"></i></div>Custom design &amp; development</div>
             <div class="ci"><div class="ci-dot"><i class="fa-solid fa-check"></i></div>VPS setup &amp; hardening</div>
             <div class="ci"><div class="ci-dot"><i class="fa-solid fa-check"></i></div>Domain, DNS &amp; SSL</div>
             <div class="ci"><div class="ci-dot"><i class="fa-solid fa-check"></i></div>WordPress &amp; headless CMS</div>
@@ -939,70 +960,64 @@ footer{
             <div class="ci"><div class="ci-dot"><i class="fa-solid fa-check"></i></div>SEO &amp; performance tuning</div>
             <div class="ci"><div class="ci-dot"><i class="fa-solid fa-check"></i></div>Ongoing maintenance plans</div>
           </div>
-          <div class="spacer"></div>
-          <a href="#contact" class="btn btn-solid" style="align-self:flex-start">
-            <i class="fa-solid fa-arrow-right"></i> Start a Website Project
-          </a>
         </div>
       </div>
+    </div>
 
-      <!-- M365 -->
-      <div class="glass-card b-m365 tint-ind sm-card fi fi-d1">
-        <div class="icon-box ic-ind"><i class="fa-brands fa-microsoft"></i></div>
-        <h3>Microsoft 365</h3>
-        <p>Full M365 deployment, licensing, and ongoing admin. Exchange, Teams, SharePoint, and Entra ID configured properly from day one.</p>
-        <div class="sm-tags">
-          <span class="tag">Exchange</span><span class="tag">Teams</span><span class="tag">SharePoint</span>
-        </div>
-      </div>
+    <!-- Equal 3-column grid -->
+    <div class="svc-grid">
 
-      <!-- Google WS -->
-      <div class="glass-card b-gws tint-vio sm-card fi fi-d2">
-        <div class="icon-box ic-vio"><i class="fa-brands fa-google"></i></div>
-        <h3>Google Workspace</h3>
-        <p>Workspace setup, user management, migrations, and admin console configuration for your whole team.</p>
-        <div class="sm-tags">
-          <span class="tag">Gmail</span><span class="tag">Drive</span><span class="tag">Admin</span>
-        </div>
-      </div>
-
-      <!-- Security -->
-      <div class="glass-card b-sec tint-vio sm-card fi fi-d1">
-        <div class="icon-box ic-vio"><i class="fa-solid fa-shield-halved"></i></div>
-        <h3>Cybersecurity</h3>
-        <p>Endpoint protection, MFA rollout, security audits, and phishing awareness training to protect your team.</p>
-        <div class="sm-tags">
-          <span class="tag">EDR</span><span class="tag">MFA</span><span class="tag">Audit</span>
-        </div>
-      </div>
-
-      <!-- Managed IT -->
-      <div class="glass-card b-it tint-ora sm-card fi fi-d2">
+      <div class="glass-card tint-ora sm-card fi fi-d1">
         <div class="icon-box ic-ora"><i class="fa-solid fa-headset"></i></div>
-        <h3>Managed IT</h3>
-        <p>Proactive monitoring, helpdesk support, and day-to-day IT management. I keep your systems running.</p>
+        <h3>Managed IT Services</h3>
+        <p>End-to-end IT support for your team — helpdesk, monitoring, patch management, Microsoft 365, Google Workspace setup and admin, and ongoing maintenance. I keep everything running so you don't have to think about it.</p>
         <div class="sm-tags">
-          <span class="tag">Helpdesk</span><span class="tag">Monitoring</span><span class="tag">Patching</span>
+          <span class="tag">Microsoft 365</span><span class="tag">Google WS</span><span class="tag">Helpdesk</span><span class="tag">Monitoring</span>
         </div>
       </div>
 
-      <!-- Cloud -->
-      <div class="glass-card b-cloud tint-cyn sm-card fi fi-d1">
+      <div class="glass-card tint-cyn sm-card fi fi-d2">
         <div class="icon-box ic-cyn"><i class="fa-solid fa-cloud"></i></div>
-        <h3>Cloud &amp; Infrastructure</h3>
-        <p>Cloud migrations, Azure and AWS setup, VPN and network design built to scale with your business.</p>
+        <h3>Cloud &amp; Azure Infrastructure</h3>
+        <p>Cloud migrations, Azure Networking, Azure Data Factory, AWS infrastructure, and hybrid environment design built for reliability and scale. Backed by MCSE Cloud Platform &amp; Infrastructure and 15+ years of enterprise-level cloud support.</p>
         <div class="sm-tags">
-          <span class="tag">Azure</span><span class="tag">AWS</span><span class="tag">Networking</span>
+          <span class="tag">Azure Networking</span><span class="tag">Azure Data Factory</span><span class="tag">AWS</span><span class="tag">Migrations</span>
         </div>
       </div>
 
-      <!-- IT Consulting -->
-      <div class="glass-card b-consult tint-ind sm-card fi fi-d2">
-        <div class="icon-box ic-ind"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
-        <h3>IT Consulting</h3>
-        <p>Not sure what you need? I'll audit your current setup and give you a clear, practical plan. No jargon, no upselling.</p>
+      <div class="glass-card tint-vio sm-card fi fi-d3">
+        <div class="icon-box ic-vio"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3>Cybersecurity &amp; Compliance</h3>
+        <p>Endpoint protection, MFA, security audits, and zero-trust architecture. Deep knowledge of FedRAMP IL2, IL4, IL5, CJIS, and US Public Sector regulated cloud environments — from real work with critical enterprise customers.</p>
         <div class="sm-tags">
-          <span class="tag">Assessment</span><span class="tag">Roadmap</span><span class="tag">Vendor Review</span>
+          <span class="tag">FedRAMP</span><span class="tag">CJIS</span><span class="tag">EDR</span><span class="tag">Zero Trust</span>
+        </div>
+      </div>
+
+      <div class="glass-card tint-ind sm-card fi fi-d1">
+        <div class="icon-box ic-ind" style="background:rgba(99,102,241,.12);color:var(--indigo)"><i class="fa-solid fa-robot"></i></div>
+        <h3>AI Integration &amp; Automation</h3>
+        <p>Hands-on experience deploying AI tools — ChatGPT, Google Gemini, Claude, and others — across support organizations. I help businesses identify where AI saves time, implement it safely, and train teams to actually use it.</p>
+        <div class="sm-tags">
+          <span class="tag">ChatGPT</span><span class="tag">Claude</span><span class="tag">Gemini</span><span class="tag">Workflow Automation</span>
+        </div>
+      </div>
+
+      <div class="glass-card tint-vio sm-card fi fi-d2">
+        <div class="icon-box ic-vio" style="background:rgba(167,139,250,.1);color:var(--violet)"><i class="fa-solid fa-building-columns"></i></div>
+        <h3>Regulated Cloud &amp; Gov</h3>
+        <p>Specialized experience in US Public Sector and regulated cloud environments. Familiar with FedRAMP authorization frameworks, CJIS security policy, IL2–IL5 classification requirements, and working with government and defense-adjacent clients.</p>
+        <div class="sm-tags">
+          <span class="tag">FedRAMP IL2–IL5</span><span class="tag">CJIS</span><span class="tag">US Public Sector</span><span class="tag">SnowPro</span>
+        </div>
+      </div>
+
+      <div class="glass-card tint-ind sm-card fi fi-d3">
+        <div class="icon-box ic-ind"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+        <h3>IT Consulting &amp; Strategy</h3>
+        <p>Not sure what direction to take? I draw on 15+ years of enterprise customer support and architecture experience to audit your current setup, identify gaps, and give you a plain-English roadmap — no upselling, no jargon.</p>
+        <div class="sm-tags">
+          <span class="tag">Assessment</span><span class="tag">Roadmap</span><span class="tag">Architecture</span><span class="tag">Vendor Review</span>
         </div>
       </div>
 
@@ -1133,32 +1148,36 @@ footer{
         <div class="profile-glass">
           <div class="mono">PE</div>
           <h3>Phillip Ellis</h3>
-          <div class="profile-title">Web Developer &amp; IT Professional</div>
-          <p>Helping small businesses in Georgia and beyond build a strong web presence and run reliable IT — without the enterprise price tag.</p>
+          <div class="profile-title">Web Developer &amp; IT Professional · 15+ Years</div>
+          <p>Enterprise cloud experience, hands-on IT support, and web development — all available to businesses of any size in Georgia and beyond.</p>
           <div class="creds">
             <div class="cred"><i class="fa-brands fa-microsoft" style="color:#0078d4"></i>Formerly @ Microsoft</div>
-            <div class="cred"><i class="fa-solid fa-server" style="color:var(--green)"></i>VPS Hosting</div>
-            <div class="cred"><i class="fa-solid fa-shield-halved" style="color:var(--violet)"></i>Security Focused</div>
+            <div class="cred"><i class="fa-solid fa-cloud" style="color:var(--cyan)"></i>Azure Specialist</div>
+            <div class="cred"><i class="fa-solid fa-robot" style="color:var(--indigo)"></i>AI Deployment</div>
+            <div class="cred"><i class="fa-solid fa-shield-halved" style="color:var(--violet)"></i>FedRAMP / CJIS</div>
             <div class="cred"><i class="fa-solid fa-location-dot" style="color:var(--red)"></i>Dawsonville, GA</div>
           </div>
           <div class="p-stats">
-            <div class="pstat"><div class="psv">10<em>+</em></div><div class="psl">Years in IT</div></div>
+            <div class="pstat"><div class="psv">15<em>+</em></div><div class="psl">Years in IT</div></div>
             <div class="pstat"><div class="psv">3<em>k+</em></div><div class="psl">Monthly Visitors</div></div>
+            <div class="pstat"><div class="psv">4</div><div class="psl">Certifications</div></div>
             <div class="pstat"><div class="psv">24<em>/7</em></div><div class="psl">Available</div></div>
-            <div class="pstat">
-              <div class="psv"><i class="fa-brands fa-github" style="font-size:1.2rem;color:var(--indigo)"></i></div>
-              <div class="psl">Open Source</div>
-            </div>
+          </div>
+          <div class="cert-strip">
+            <div class="cert-badge"><i class="fa-brands fa-microsoft" style="color:#0078d4"></i>MCSE: Cloud Platform &amp; Infrastructure</div>
+            <div class="cert-badge"><i class="fa-brands fa-microsoft" style="color:#0078d4"></i>MCSE: Server Infrastructure</div>
+            <div class="cert-badge"><i class="fa-brands fa-microsoft" style="color:#0078d4"></i>MS Specialist: Azure Infrastructure</div>
+            <div class="cert-badge"><i class="fa-solid fa-snowflake" style="color:var(--cyan)"></i>SnowPro Core</div>
           </div>
         </div>
       </div>
 
       <div class="about-copy fi fi-d2">
         <div class="eyebrow" style="margin-bottom:.75rem">About</div>
-        <div class="d2" style="margin-bottom:1.1rem">The person<br />behind the work</div>
-        <p>I'm Phillip Ellis — a web developer and IT professional with over a decade of experience, including time working at Microsoft. I now focus on helping small businesses get technology that actually serves them.</p>
-        <p>My sweet spot is building and hosting websites that drive real, measurable traffic. The projects I've launched pull in thousands of monthly visitors and keep growing. I handle everything myself: design, development, VPS setup, DNS, SSL, and long-term maintenance — so you deal with one person, not three vendors.</p>
-        <p>On the IT side, I've deployed Microsoft 365 and Google Workspace for businesses, built cloud infrastructure, and provided the kind of straight-talking support that keeps small teams productive. No jargon. No upselling. Just practical solutions that fit your size and budget.</p>
+        <div class="d2" style="margin-bottom:1.1rem">Enterprise depth.<br />Small business price.</div>
+        <p>I'm Phillip Ellis — a web developer and IT professional with 15+ years of experience, including time at Microsoft supporting Azure Networking, Azure Data Factory, and some of the most critical enterprise and government customers in global technology. I hold MCSE certifications in Cloud Platform &amp; Infrastructure and Server Infrastructure, an MS Specialist in Azure Infrastructure Solutions, and a SnowPro Core certification.</p>
+        <p>That enterprise background is now available to small and medium businesses who need real expertise — not a generalist who just set up a Squarespace account. I've worked in FedRAMP IL2, IL4, and IL5 environments, CJIS-regulated data, and US Public Sector regulated clouds. I've deployed AI tools — ChatGPT, Claude, Gemini — across support organizations at scale.</p>
+        <p>On the web side, the sites I've built are pulling thousands of monthly visitors and growing. I build, host, and maintain everything myself — one person, full accountability, no vendor chain.</p>
         <div class="loc-tag"><i class="fa-solid fa-location-dot"></i>Dawsonville, GA — on-site &amp; remote clients welcome</div>
         <div style="margin-top:1.75rem">
           <a href="#contact" class="btn btn-solid">
